@@ -43,8 +43,6 @@
       </div>
     </div>
   </header>
-
-  <!-- ================= TODAY ================= -->
     <!-- ================= TODAY ================= -->
   <div class="page active" id="page-today">
     <div class="greet-title">Welcome</div>
@@ -159,10 +157,73 @@
     <div class="page-heading">Profile</div>
   </div>
 
-  <!-- ================= MOVE ================= -->
+    <!-- ================= MOVE ================= -->
   <div class="page" id="page-move">
     <div class="page-eyebrow">Activity</div>
     <div class="page-heading">Move</div>
+
+    <div class="hero-card">
+      <div class="count-stage">
+        <svg class="progress" viewBox="0 0 220 220">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2EC4A6"/>
+              <stop offset="100%" stop-color="#4FA8E8"/>
+            </linearGradient>
+          </defs>
+          <circle class="track" cx="110" cy="110" r="102"></circle>
+          <circle class="fill" style="stroke:url(#ringGrad)" cx="110" cy="110" r="102"></circle>
+        </svg>
+        <div class="count-core" id="countCore">
+          <div class="count-num" id="stepCount">0</div>
+          <div class="count-label">steps today</div>
+          <button class="goal-edit" id="goalEditBtn">goal <span id="goalDisplay">10,000</span></button>
+        </div>
+      </div>
+
+      <div class="rhythm" id="rhythm"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        <div class="stat-val" id="distVal">0.00</div>
+        <div class="stat-lbl">km</div>
+      </div>
+      <div class="stat">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div class="stat-val" id="paceVal">—</div>
+        <div class="stat-lbl">steps/min</div>
+      </div>
+      <div class="stat">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 6 6 9.5 6 13a6 6 0 0012 0c0-1.5-.5-3-1.5-4.5C15.5 10 14 11 14 11c0-3-1-5-2-9z"/></svg>
+        <div class="stat-val" id="calVal">0</div>
+        <div class="stat-lbl">kcal</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="dot" id="statusDot"></div>
+      <span id="statusText">Not started — press begin to allow motion access.</span>
+    </div>
+
+    <div class="controls">
+      <button class="act primary" id="startBtn">Begin</button>
+      <button class="act" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Past 7 days</div>
+        <div class="streak-badge" id="streakBadge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4-3 5-3 9a3 3 0 006 0c0-1-1-2-1-2 2 1 3 3 3 5a5 5 0 01-10 0c0-5 4-6 5-12z"/></svg>
+          <span>0-day streak</span>
+        </div>
+      </div>
+      <div class="chart" id="chart"></div>
+    </div>
+
+    <div class="footnote">Keep the phone with you. Works best held or pocketed while walking. Estimates, not medical-grade.</div>
   </div>
 
   <!-- ================= GYM ================= -->
