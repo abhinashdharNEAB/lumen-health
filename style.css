@@ -1,25 +1,24 @@
 :root{
-  --bg: #0B1310;
-  --bg-elev: #111C17;
-  --card: #15221C;
-  --card-2: #1C2B23;
-  --stroke: rgba(180,230,200,0.08);
-  --stroke-2: rgba(180,230,200,0.14);
-  --text: #F4F7F1;
-  --text-dim: #8FA398;
-  --text-faint: #566259;
-  --teal: #3ECF8E;
-  --violet: #9C8CE8;
+  --bg: #F4F8FA;
+  --bg-elev: #FFFFFF;
+  --card: #FFFFFF;
+  --card-2: #EEF4F6;
+  --stroke: rgba(20,50,60,0.07);
+  --stroke-2: rgba(20,50,60,0.12);
+  --text: #0F2A38;
+  --text-dim: #5C7A87;
+  --text-faint: #9AB0B9;
+  --teal: #2EC4A6;
+  --violet: #4FA8E8;
   --coral: #FF8B62;
-  --blue: #3FBAD1;
+  --blue: #4FA8E8;
   --gold: #F2B33D;
   --grad: linear-gradient(135deg, var(--teal), var(--violet));
   --grad-blue: linear-gradient(135deg, var(--blue), var(--violet));
   --grad-gold: linear-gradient(135deg, var(--gold), var(--coral));
-  --shadow-ambient: rgba(6,20,14,0.55);
+  --shadow-ambient: rgba(20,60,80,0.10);
   --app-max-w: 560px;
 }
-
 [data-theme="light"]{
   --bg: #F5F2E6;
   --bg-elev: #FFFFFF;
@@ -166,3 +165,49 @@ svg.progress .fill{
 .export-btn svg{ width:14px; height:14px; }
 
 .footnote{ width:100%; text-align:center; font-size: 10.5px; color: var(--text-faint); margin-top: 14px; margin-bottom: 10px; line-height:1.5; padding: 0 10px; }
+.count-stage{ position:relative; width: 240px; height: 240px; display:flex; align-items:center; justify-content:center; margin-bottom: 6px; }
+.rhythm{ width:100%; height: 40px; margin: 22px 0 4px; display:flex; align-items:flex-end; gap: 2.5px; overflow:hidden; }
+.rhythm .bar{ flex: 1 0 auto; width: 2.5px; background: var(--stroke-2); border-radius: 2px; transition: height 0.15s ease, background 0.15s ease; }
+.rhythm .bar.step{ background: var(--grad); }
+
+.goal-edit{ margin-top: 12px; background: var(--card-2); border: 1px solid var(--stroke); color: var(--text-dim); font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 20px; cursor:pointer; }
+.goal-edit span{ color: var(--text); }
+.count-core{ display:flex; flex-direction:column; align-items:center; transition: transform 0.1s ease; }
+.count-core.pulse{ transform: scale(1.05); }
+
+.stats{ width:100%; display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.stat{ background: var(--card); border: 1px solid var(--stroke); border-radius: 18px; padding: 14px 8px; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.stat-icon{ width:16px; height:16px; margin-bottom:2px; color: var(--text-faint); }
+.stat-val{ font-size: 17px; font-weight: 700; }
+.stat-lbl{ font-size: 9.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.03em; text-transform: uppercase; }
+
+.status{ width:100%; display:flex; align-items:center; gap:8px; background: var(--card); border: 1px solid var(--stroke); border-radius: 14px; padding: 10px 14px; font-size: 12px; font-weight:600; color: var(--text-dim); margin-bottom: 14px; }
+.dot{ width:7px; height:7px; border-radius:50%; background: var(--text-faint); flex-shrink:0; }
+.dot.live{ background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: blink 1.4s ease-in-out infinite; }
+.dot.err{ background: var(--coral); }
+.dot.paused{ background: var(--violet); }
+@keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+
+.controls{ width:100%; display:flex; gap:10px; margin-bottom: 20px; }
+button.act{ font-size: 14px; font-weight: 700; padding: 16px 0; flex:1; border-radius: 16px; border: 1px solid var(--stroke); background: var(--card); color: var(--text-dim); cursor:pointer; transition: all 0.15s ease; }
+button.act:active{ transform: scale(0.97); }
+button.act.primary{ background: var(--grad); color: #fff; border: none; box-shadow: 0 10px 24px -8px rgba(46,196,166,0.5); }
+button.act.primary.stopping{ background: linear-gradient(135deg, var(--coral), #FFB08C); box-shadow: 0 10px 24px -8px rgba(255,139,98,0.5); }
+button.act:disabled{ opacity:0.4; cursor:not-allowed; }
+
+.card{ width:100%; background: var(--card); border: 1px solid var(--stroke); border-radius: 24px; padding: 20px; margin-bottom: 12px; }
+.card-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+.card-title{ font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+.streak-badge{ display:flex; align-items:center; gap:5px; font-size: 11px; font-weight: 700; color: var(--coral); background: rgba(255,139,98,0.12); padding: 5px 10px; border-radius: 20px; }
+.streak-badge svg{ width:11px; height:11px; }
+
+.chart{ display:flex; align-items:flex-end; gap: 8px; height: 84px; width:100%; margin-bottom: 4px; }
+.chart-col{ flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; height:100%; justify-content:flex-end; position:relative; }
+.chart-col::before{
+  content:''; position:absolute; left:50%; top:0; bottom:20px; transform:translateX(-50%);
+  width:100%; max-width:24px; background: var(--stroke); opacity:0.6; border-radius:8px; z-index:0;
+}
+.chart-bar{ position:relative; z-index:1; width: 100%; max-width: 24px; background: var(--stroke-2); border-radius: 8px; min-height: 4px; transition: height 0.4s cubic-bezier(.4,0,.2,1), background 0.3s ease; }
+.chart-bar.met{ background: linear-gradient(180deg, var(--teal), rgba(46,196,166,0.5)); }
+.chart-bar.today{ background: var(--grad); box-shadow: 0 4px 14px -4px rgba(46,196,166,0.5); }
+.chart-lbl{ font-size: 10px; font-weight: 600; color: var(--text-faint); }
