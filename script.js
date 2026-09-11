@@ -202,7 +202,7 @@
   resetBtn.addEventListener('click', () => { steps = 0; recentTimes = []; render(); });
 
   goalEditBtn.addEventListener('click', () => {
-    const v = prompt('Set your daily step goal:', goal);
+  
     if(v === null) return;
     const n = Math.max(500, parseInt(v, 10) || 10000);
     goal = n;
@@ -211,9 +211,138 @@
     render();
   });
 
+  // ---- settings sheet ----
+  const settingsBtn = document.getElementById('settingsBtn');
+  const overlay = document.getElementById('overlay');
+  const sheet = document.getElementById('sheet');
+  const closeSheet = document.getElementById('closeSheet');
+  const goalInput = document.getElementById('goalInput');
+  const stepGoalRowVal = document.getElementById('stepGoalRowVal');
+
+  goalInput.value = goal;
+  stepGoalRowVal.textContent = goal.toLocaleString();
+
+  let openSettingsDetailEl = null;
+  function openSettingsDetail(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    sheet.classList.remove('open');
+    el.classList.add('open');
+    openSettingsDetailEl = el;
+  }
+  function closeSettingsDetail(){
+    if(openSettingsDetailEl){ openSettingsDetailEl.classList.remove('open'); openSettingsDetailEl = null; }
+    sheet.classList.add('open');
+  }
+  document.querySelectorAll('.settings-row.nav[data-open]').forEach(row => {
+    row.addEventListener('click', () => openSettingsDetail(row.getAttribute('data-open')));
+  });
+  document.querySelectorAll('.settings-detail [data-back]').forEach(btn => {
+    btn.addEventListener('click', closeSettingsDetail);
+  });
+
+  function adjustStepper(input, dir){
+    const step = parseFloat(input.step) || 1;
+    let v = (parseFloat(input.value) || 0) + dir * step;
+    v = Math.max(500, v);
+    input.value = v;
+    input.dispatchEvent(new Event('change', { bubbles:true }));
+  }
+  document.querySelectorAll('.settings-detail .stepper-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = btn.parentElement;
+      const input = wrap.querySelector('input.stepper-input');
+      if(input) adjustStepper(input, btn.classList.contains('minus') ? -1 : 1);
+    });
+  });
+
+  function openSheet(){ overlay.classList.add('open'); sheet.classList.add('open'); }
+  function closeSheetFn(){ closeSettingsDetail(); overlay.classList.remove('open'); sheet.classList.remove('open'); }
+  settingsBtn.addEventListener('click', openSheet);
+  goalEditBtn.addEventListener('click', openSheet);
+  overlay.addEventListener('click', () => { if(openSettingsDetailEl){ closeSettingsDetail(); } else { closeSheetFn(); } });
+  closeSheet.addEventListener('click', closeSheetFn);
+
+  goalInput.addEventListener('change', () => {
+    const v = Math.max(500, parseInt(goalInput.value || '10000', 10));
+    goal = v; goalInput.value = v; goalDisplay.textContent = v.toLocaleString();
+    stepGoalRowVal.textContent = v.toLocaleString();
+    localStorage.setItem('gait_goal', String(v)); render();
+  });
+
   render();
 
   if(location.protocol !== 'https:' && location.hostname !== 'localhost'){
     setStatus('Needs to be opened over HTTPS for motion access to work.', 'err');
   }
+})();
+(function(){
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function keyFor(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function todayKey(){ return keyFor(new Date()); }
+  function readJSON(key, fallback){
+    try{ const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; }catch(e){ return fallback; }
+  }
+
+  const cupGrid = document.getElementById('cupGrid');
+  const waterNum = document.getElementById('waterNum');
+  const waterBar = document.getElementById('waterBar');
+  const waterChart = document.getElementById('waterChart');
+  const CUP_ML = 250;
+
+  let waterGoal = parseInt(localStorage.getItem('vt_water_goal') || '2000', 10);
+  document.getElementById('waterGoalNum').textContent = waterGoal;
+
+  function getWaterHistory(){ return readJSON('vt_water_history', {}); }
+  function setWaterToday(ml){
+    const hist = getWaterHistory();
+    hist[todayKey()] = Math.max(0, ml);
+    localStorage.setItem('vt_water_history', JSON.stringify(hist));
+  }
+  function addWater(ml){
+    const hist = getWaterHistory();
+    const cur = hist[todayKey()] || 0;
+    setWaterToday(cur + ml);
+    renderWater();
+  }
+
+  function renderWater(){
+    const hist = getWaterHistory();
+    const ml = hist[todayKey()] || 0;
+    waterNum.textContent = ml.toLocaleString();
+    waterBar.style.width = Math.min(100, Math.round((ml / waterGoal) * 100)) + '%';
+
+    const totalCups = Math.max(4, Math.round(waterGoal / CUP_ML));
+    const filled = Math.round(ml / CUP_ML);
+    cupGrid.innerHTML = '';
+    for(let i=0;i<totalCups;i++){
+      const c = document.createElement('div');
+      c.className = 'cup' + (i < filled ? ' filled' : '');
+      c.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5s6.5 7.2 6.5 12a6.5 6.5 0 01-13 0c0-4.8 6.5-12 6.5-12z"/></svg>';
+      c.addEventListener('click', () => { setWaterToday((i+1) * CUP_ML); renderWater(); });
+      cupGrid.appendChild(c);
+    }
+
+    waterChart.innerHTML = '';
+    for(let i=6;i>=0;i--){
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const key = keyFor(d);
+      const val = i === 0 ? ml : (hist[key] || 0);
+      const col = document.createElement('div'); col.className = 'chart-col';
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar blue' + (i === 0 ? ' today' : (val >= waterGoal ? ' met' : ''));
+      const maxVal = Math.max(waterGoal, ml, 1);
+      const h = Math.max(4, Math.round((val / maxVal) * 76));
+      bar.style.height = h + 'px';
+      const lbl = document.createElement('div'); lbl.className = 'chart-lbl'; lbl.textContent = d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2);
+      col.appendChild(bar); col.appendChild(lbl); waterChart.appendChild(col);
+    }
+  }
+
+  document.getElementById('waterAdd200').addEventListener('click', () => addWater(200));
+  document.getElementById('waterAdd350').addEventListener('click', () => addWater(350));
+  document.getElementById('waterAdd500').addEventListener('click', () => addWater(500));
+  document.getElementById('waterReset').addEventListener('click', () => { setWaterToday(0); renderWater(); });
+
+  renderWater();
 })();
