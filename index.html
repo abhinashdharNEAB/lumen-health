@@ -44,86 +44,111 @@
     </div>
   </header>
 
-  <!-- ================= TODAY ================= -->
+    <!-- ================= TODAY ================= -->
   <div class="page active" id="page-today">
-    <div class="page-heading">Today</div>
+    <div class="greet-title">Welcome</div>
+    <div class="greet-sub">Friday, September 11</div>
+
+    <div class="medid-banner" title="Medical ID" aria-label="Medical ID">
+      <div class="medid-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0A1F16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="3"/>
+          <path d="M12 9v6M9 12h6"/>
+        </svg>
+      </div>
+      <div class="medid-text">
+        <div class="medid-title">Medical ID</div>
+        <div class="medid-sub">Emergency info · tap to view</div>
+      </div>
+      <svg class="medid-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+
+    <div class="hero-card">
+      <div class="count-stage small">
+        <svg class="progress score-ring" viewBox="0 0 220 220">
+          <defs>
+            <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3ECF8E"/>
+              <stop offset="100%" stop-color="#9C8CE8"/>
+            </linearGradient>
+          </defs>
+          <circle class="track" cx="110" cy="110" r="102"></circle>
+          <circle class="fill" cx="110" cy="110" r="102"></circle>
+        </svg>
+        <div class="count-core">
+          <div class="count-num mid">0%</div>
+          <div class="count-label">today's score</div>
+        </div>
+      </div>
+      <div class="score-tag">Log something to get started</div>
+    </div>
+
+    <div class="today-grid">
+      <button class="today-card" data-tab="move">
+        <div class="today-card-top">
+          <div class="today-card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="today-card-val">0</div>
+        <div class="today-card-lbl">steps</div>
+        <div class="today-mini-bar"><span style="width:0%"></span></div>
+      </button>
+
+      <button class="today-card" data-tab="heart">
+        <div class="today-card-top">
+          <div class="today-card-icon coral"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10.1-9.6C.3 8.2 1.7 4.8 5 3.9c2-.5 4 .3 5 2 1-1.7 3-2.5 5-2 3.3.9 4.7 4.3 3.1 7.5C19.5 16.1 12 21 12 21z"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="today-card-val">—</div>
+        <div class="today-card-lbl">heart rate</div>
+      </button>
+
+      <button class="today-card" data-tab="body">
+        <div class="today-card-top">
+          <div class="today-card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5s6.5 7.2 6.5 12a6.5 6.5 0 01-13 0c0-4.8 6.5-12 6.5-12z"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="today-card-val">0 ml</div>
+        <div class="today-card-lbl">water</div>
+        <div class="today-mini-bar"><span style="width:0%; background: var(--grad-blue);"></span></div>
+      </button>
+
+      <button class="today-card" data-tab="sleep">
+        <div class="today-card-top">
+          <div class="today-card-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="today-card-val">—</div>
+        <div class="today-card-lbl">last night</div>
+      </button>
+
+      <button class="today-card" data-tab="gym">
+        <div class="today-card-top">
+          <div class="today-card-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10M18 7v10M2 10v4M22 10v4M6 12h12"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="today-card-val">0</div>
+        <div class="today-card-lbl">no workout yet</div>
+      </button>
+
+      <button class="today-card wide" data-tab="body">
+        <div class="today-card-top">
+          <div class="today-card-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3L5 5M18 18l-1.3-1.3M17.7 6.3L19 5M6 19l1.3-1.3"/><circle cx="12" cy="12" r="5"/></svg></div>
+          <svg class="today-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="spark-row">
+          <div>
+            <div class="today-card-val">— kg</div>
+            <div class="today-card-lbl">weight · BMI —</div>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <button class="export-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      Export full health report (PDF)
+    </button>
+
+    <div class="footnote">Lumen combines on-device motion sensing and a camera pulse check with manual logs for water, sleep and weight. Estimates only — not medical-grade and not a diagnosis.</div>
   </div>
-
-  <!-- ================= PROFILE ================= -->
-  <div class="page" id="page-profile">
-    <div class="page-heading">Profile</div>
-  </div>
-
-  <!-- ================= MOVE ================= -->
-  <div class="page" id="page-move">
-    <div class="page-eyebrow">Activity</div>
-    <div class="page-heading">Move</div>
-  </div>
-
-  <!-- ================= GYM ================= -->
-  <div class="page" id="page-gym">
-    <div class="page-eyebrow">Strength</div>
-    <div class="page-heading">Gym</div>
-  </div>
-
-  <!-- ================= HEART ================= -->
-  <div class="page" id="page-heart">
-    <div class="page-eyebrow">Lumen</div>
-    <div class="page-heading">Heart</div>
-  </div>
-
-  <!-- ================= SLEEP ================= -->
-  <div class="page" id="page-sleep">
-    <div class="page-eyebrow">Rest</div>
-    <div class="page-heading">Sleep</div>
-  </div>
-
-  <!-- ================= BODY ================= -->
-  <div class="page" id="page-body">
-    <div class="page-eyebrow">Body</div>
-    <div class="page-heading">Water &amp; weight</div>
-  </div>
-
-  <!-- ================= MORE ================= -->
-  <div class="page" id="page-more">
-    <div class="page-eyebrow">Wellbeing</div>
-    <div class="page-heading">More</div>
-  </div>
-
-</div>
-
-<nav class="tabbar">
-  <button class="tab-btn active" data-tab="today">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-    Today
-  </button>
-  <button class="tab-btn" data-tab="move">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-    Move
-  </button>
-  <button class="tab-btn" data-tab="gym">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10M18 7v10M2 10v4M22 10v4M6 12h12"/></svg>
-    Gym
-  </button>
-  <button class="tab-btn" data-tab="heart">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.9-10.1-9.6C.3 8.2 1.7 4.8 5 3.9c2-.5 4 .3 5 2 1-1.7 3-2.5 5-2 3.3.9 4.7 4.3 3.1 7.5C19.5 16.1 12 21 12 21z"/></svg>
-    Heart
-  </button>
-  <button class="tab-btn" data-tab="sleep">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z"/></svg>
-    Sleep
-  </button>
-  <button class="tab-btn" data-tab="body">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5s6.5 7.2 6.5 12a6.5 6.5 0 01-13 0c0-4.8 6.5-12 6.5-12z"/></svg>
-    Body
-  </button>
-  <button class="tab-btn" data-tab="more">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>
-    More
-  </button>
-</nav>
-
-<script src="script.js"></script>
-
-</body>
-</html>
