@@ -237,12 +237,121 @@
   <div class="page" id="page-heart">
     <div class="page-eyebrow">Lumen</div>
     <div class="page-heading">Heart</div>
+
+    <div class="hr-card">
+      <div class="hr-top">
+        <div class="hr-title-row">
+          <svg class="hr-icon" id="hrIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10.1-9.6C.3 8.2 1.7 4.8 5 3.9c2-.5 4 .3 5 2 1-1.7 3-2.5 5-2 3.3.9 4.7 4.3 3.1 7.5C19.5 16.1 12 21 12 21z"/></svg>
+          <div class="card-title">Heart Rate</div>
+        </div>
+      </div>
+    <div class="card" id="stressCard">
+      <div class="card-head">
+        <div class="card-title-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          <div class="card-title">Stress (HRV)</div>
+        </div>
+        <div class="streak-badge" id="stressBadge" style="color:var(--text-dim); background:var(--card-2);">
+          <span id="stressLabelText">—</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:8px;">
+        <div class="count-num mid" id="stressRmssd">—</div>
+        <div class="count-label" style="margin-top:0;">ms RMSSD</div>
+      </div>
+      <div class="hr-history" id="stressHistory"></div>
+      <div class="hr-status" id="stressHint">Check your pulse to get a stress reading — it's derived from the same 20-second measurement.</div>
+    </div>
+
+    <div class="card" id="trendsCard">
+      <div class="card-head">
+        <div class="card-title-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
+          <div class="card-title">Heart trends</div>
+        </div>
+      </div>
+      <div class="field-lbl" style="margin-bottom:10px;">Resting HR — past 7 days</div>
+      <div class="chart" id="restingChart"></div>
+      <div class="avg-row"><span>7-day resting average</span><b id="restingAvg">— bpm</b></div>
+
+      <div class="field-lbl" style="margin:16px 0 8px;">Log a reading for these trends</div>
+      <div class="chip-row">
+        <div class="chip ghost" id="trendLogResting">Resting</div>
+      </div>
+      <div class="hr-status" id="trendsHint" style="margin-top:8px;">Tap "Resting" then check your pulse first thing in the morning to build this trend — everyday checks stay untagged so they don't skew it.</div>
+    </div>
+      <div class="hr-body">
+        <div class="hr-reading" id="hrReadingWrap">
+          <div class="hr-bpm placeholder" id="hrBpm">—</div>
+          <div class="hr-unit">bpm</div>
+          <svg class="hr-loading-icon" id="hrLoadingIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10.1-9.6C.3 8.2 1.7 4.8 5 3.9c2-.5 4 .3 5 2 1-1.7 3-2.5 5-2 3.3.9 4.7 4.3 3.1 7.5C19.5 16.1 12 21 12 21z"/></svg>
+        </div>
+        <div class="hr-preview" id="hrPreview">
+          <canvas id="hrCanvas" width="40" height="30"></canvas>
+        </div>
+        <div class="hr-wave" id="hrWave"></div>
+      </div>
+
+      <button class="hr-check-btn" id="hrCheckBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-7 4 14 3-10 2 5h5"/></svg>
+        <span id="hrBtnLabel">Check pulse</span>
+      </button>
+      <div class="hr-status" id="hrStatus">Cover the rear camera and flash fully with your fingertip.</div>
+      <div class="hr-history" id="hrHistory"></div>
+    </div>
+
+    <div class="footnote">Hold still, breathe normally. Readings are estimates from your camera sensor and light — not a medical device.</div>
   </div>
 
   <!-- ================= SLEEP ================= -->
   <div class="page" id="page-sleep">
     <div class="page-eyebrow">Rest</div>
     <div class="page-heading">Sleep</div>
+
+    <div class="hero-card">
+      <div class="count-num mid" id="sleepLastVal">—</div>
+      <div class="count-label" style="margin-top:4px;">last night</div>
+      <div class="score-tag" id="sleepGoalTag">No entry yet</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z"/></svg>
+          <div class="card-title">Log last night</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <div class="field-lbl">Bedtime</div>
+          <input type="time" id="sleepBed" value="23:00">
+        </div>
+        <div class="field">
+          <div class="field-lbl">Wake time</div>
+          <input type="time" id="sleepWake" value="07:00">
+        </div>
+      </div>
+
+      <div class="field-lbl" style="margin-bottom:8px;">How did you sleep?</div>
+      <div class="chip-row" id="sleepQualityRow">
+        <div class="chip" data-q="1">Poor</div>
+        <div class="chip" data-q="2">OK</div>
+        <div class="chip active" data-q="3">Great</div>
+      </div>
+
+      <button class="save-btn violet" id="sleepSaveBtn">Save sleep</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Past 7 nights</div>
+      </div>
+      <div class="chart" id="sleepChart"></div>
+      <div class="avg-row"><span>7-night average</span><b id="sleepAvg">— h</b></div>
+    </div>
+
+    <div class="footnote">Duration is calculated from the times you enter, not from motion sensing — log it whenever suits you.</div>
   </div>
 
   <!-- ================= BODY (water + weight) ================= -->
@@ -276,7 +385,39 @@
 
       <div class="chart" id="waterChart" style="margin-top:16px;"></div>
     </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3L5 5M18 18l-1.3-1.3M17.7 6.3L19 5M6 19l1.3-1.3"/><circle cx="12" cy="12" r="5"/></svg>
+          <div class="card-title">Weight</div>
+        </div>
+      </div>
 
+      <div class="weight-top">
+        <div>
+          <div class="weight-num" id="weightNum">—</div>
+          <div class="weight-unit">kg, latest</div>
+        </div>
+        <div class="weight-delta" id="weightDelta">no history</div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <div class="field-lbl">Your height (for BMI)</div>
+        <input type="number" id="heightInput" min="100" max="230" placeholder="e.g. 170" style="max-width:140px;">
+        <span style="font-size:12px; color:var(--text-dim); margin-left:6px;">cm</span>
+      </div>
+      <div class="bmi-badge">
+        <div><div class="bmi-lbl">BMI</div><div class="bmi-val" id="bmiVal">—</div></div>
+        <div class="bmi-cat" id="bmiCat">set height</div>
+      </div>
+
+      <div class="weight-input-row">
+        <input type="number" id="weightInput" placeholder="Enter weight in kg" step="0.1" min="20" max="400">
+        <button id="weightLogBtn">Log</button>
+      </div>
+
+      <div class="weight-list" id="weightList"></div>
+      <div class="empty-hint" id="weightEmptyHint">No entries yet — log your first weight above.</div>
+    </div>
     <div class="footnote">These logs are self-reported and stored only on this device.</div>
   </div>
 
